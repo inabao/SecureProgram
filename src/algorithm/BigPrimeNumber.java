@@ -50,7 +50,6 @@ public class BigPrimeNumber {
         BigInteger n = new BigInteger(bits, random);
         if(n.remainder(BigInteger.TWO).intValue() == 1) n.add(BigInteger.ONE);
         while(!judgePrime(n)){
-            System.out.println(n);
             n = new BigInteger(bits, random);
             if(n.remainder(BigInteger.TWO).intValue() == 1) n.add(BigInteger.ONE);
         }

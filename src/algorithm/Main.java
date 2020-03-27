@@ -1,13 +1,17 @@
 package algorithm;
 
-import java.math.BigInteger;
-import java.util.Random;
-
 public class Main {
 
     public static void main(String[] args) {
-        BigPrimeNumber bigPrimeNumber = new BigPrimeNumber();
-        System.out.println(bigPrimeNumber.probablePrime(120));
-        System.out.println(bigPrimeNumber.judgePrime(BigInteger.probablePrime(120, new Random())));
+        int[] c = {1,0,0,1};
+        int[] a = {0,0,0,1};
+        int[] message = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        StreamCipher streamCipher = new StreamCipher(c);
+        streamCipher.generateA(a);
+        int[] m = streamCipher.decode(streamCipher.encode(message));
+        for (int single_m:m
+             ) {
+            System.out.print(single_m+" ");
+        }
     }
 }
