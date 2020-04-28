@@ -182,6 +182,7 @@ public class DES {
             else
                 R = lunFunction(R, subKey[15-i]);
             R.xor(L);
+            System.out.println(L);
             L = temp;
         }
         BitSet newBitSet = new BitSet(64);
