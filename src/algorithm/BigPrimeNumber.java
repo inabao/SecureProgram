@@ -20,12 +20,12 @@ public class BigPrimeNumber {
          if(r0.equals(n.subtract(BigInteger.ONE)) || r0.equals(BigInteger.ONE)){
              return true;
          }
-         BigInteger r = r0.modPow(BigInteger.TWO, n);
+         BigInteger r = r0.modPow(BigInteger.valueOf(2), n);
          int i = 1;
          while(i<s){
              i++;
              if(r.equals(n.subtract(BigInteger.ONE))) return true;
-             r = r.modPow(BigInteger.TWO, n);
+             r = r.modPow(BigInteger.valueOf(2), n);
          }
          return false;
     }
@@ -34,9 +34,9 @@ public class BigPrimeNumber {
         int temp_t = 0;
         int s = 0;
         BigInteger k = n.subtract(BigInteger.ONE);
-        while(k.remainder(BigInteger.TWO).intValue() != 1){
+        while(k.remainder(BigInteger.valueOf(2)).intValue() != 1){
             s++;
-            k = k.divide(BigInteger.TWO);
+            k = k.divide(BigInteger.valueOf(2));
         }
         while(temp_t < t){
             temp_t++;
@@ -48,10 +48,10 @@ public class BigPrimeNumber {
 
     public BigInteger probablePrime(int bits){
         BigInteger n = new BigInteger(bits, random);
-        if(n.remainder(BigInteger.TWO).intValue() == 1) n.add(BigInteger.ONE);
+        if(n.remainder(BigInteger.valueOf(2)).intValue() == 1) n.add(BigInteger.ONE);
         while(!judgePrime(n)){
             n = new BigInteger(bits, random);
-            if(n.remainder(BigInteger.TWO).intValue() == 1) n.add(BigInteger.ONE);
+            if(n.remainder(BigInteger.valueOf(2)).intValue() == 1) n.add(BigInteger.ONE);
         }
         return n;
     }
@@ -60,8 +60,8 @@ public class BigPrimeNumber {
         BigInteger bigInteger = new BigInteger("1");
         BigInteger temp;
         while(!k.equals(BigInteger.ZERO)){
-            temp = k.remainder(BigInteger.TWO);
-            k = k.divide(BigInteger.TWO);
+            temp = k.remainder(BigInteger.valueOf(2));
+            k = k.divide(BigInteger.valueOf(2));
             if (temp.equals(BigInteger.ONE))
                 bigInteger = bigInteger.multiply(m);
             m = m.pow(2).mod(n);
@@ -80,7 +80,7 @@ public class BigPrimeNumber {
             x = BigInteger.ONE;
             return a;  //到达递归边界开始向上一层返回
         }
-        BigInteger r = exgcd(b, a.remainder(b));
+        exgcd(b, a.remainder(b));
         BigInteger temp = y;    //把x y变成上一层的
         y = x.subtract(a.divide(b).multiply(y));
         x = temp;
