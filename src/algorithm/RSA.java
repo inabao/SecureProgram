@@ -35,18 +35,14 @@ public class RSA {
         return BigPrimeNumber.pow(c, d, n);
     }
 
-    public BigInteger[] encoder(String s){
-        BigInteger[] bigInteger = new BigInteger[s.length()];
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            bigInteger[i] = singleEncoder(BigInteger.valueOf((int)c));
-        }
-        return bigInteger;
+    public BigInteger encoder(String s){
+        return singleEncoder(new BigInteger(s.getBytes()));
     }
-    public String decoder(BigInteger[] bigIntegers){
-        StringBuffer stringBuffer = new StringBuffer(bigIntegers.length);
-        for (int i = 0; i < bigIntegers.length; i++) {
-            stringBuffer.insert(i, (char)singleDecoder(bigIntegers[i]).intValue());
+    public String decoder(BigInteger bigInteger){
+        byte[] bytes = singleDecoder(bigInteger).toByteArray();
+        StringBuffer stringBuffer = new StringBuffer(bytes.length);
+        for (int i = 0; i < bytes.length; i++) {
+            stringBuffer.insert(i, (char)bytes[i]);
         }
         return new String(stringBuffer);
     }
@@ -55,7 +51,7 @@ public class RSA {
 
     public static void main(String[] args) {
         RSA rsa = new RSA();
-        System.out.println(Arrays.toString(rsa.encoder("math")));
+        System.out.println(rsa.encoder("math"));
         System.out.println(rsa.decoder(rsa.encoder("math")));
     }
 }

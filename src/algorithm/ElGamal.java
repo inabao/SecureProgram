@@ -40,7 +40,6 @@ public class ElGamal {
 
     public Point decode(){
         return sub(c2, multiply(x, c1));
-
     }
 
     private Point sub(Point a, Point b){
@@ -75,7 +74,7 @@ public class ElGamal {
 
     public static void main(String[] args) {
         ElGamal elGamal = new ElGamal();
-        elGamal.encode(new ElGamal.Point(12,27));
+        elGamal.encode(new ElGamal.Point(11,22));
         System.out.println(elGamal.decode().x+" "+elGamal.decode().y);
     }
 }
