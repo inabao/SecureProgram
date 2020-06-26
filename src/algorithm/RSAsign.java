@@ -28,6 +28,6 @@ public class RSAsign {
         RSAsign rsaSign = new RSAsign();
         String message = "hello world";
         byte[] signValue = rsaSign.sign(message);
-        System.out.println(rsaSign.valid(signValue, message));
+        System.out.println(rsaSign.valid(rsaSign.sign(message), message));
     }
 }

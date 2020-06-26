@@ -4,10 +4,10 @@ import java.math.BigInteger;
 import java.util.Random;
 
 public class BigPrimeNumber {
-    private int t = 10;
-    private Random random = new Random();
+    private static int t = 10;
+    private static Random random = new Random();
 
-    private BigInteger generateB(BigInteger n, int bits){
+    private static BigInteger generateB(BigInteger n, int bits){
         BigInteger bigInteger = new BigInteger(bits, random);
         while(!bigInteger.gcd(n).equals(BigInteger.ONE)){
             bigInteger = new BigInteger(bits, random);
@@ -15,7 +15,7 @@ public class BigPrimeNumber {
         return bigInteger;
     }
 
-    private boolean simpleJudge(BigInteger n, BigInteger b, BigInteger k, int s){
+    private static boolean simpleJudge(BigInteger n, BigInteger b, BigInteger k, int s){
          BigInteger r0 = b.modPow(k, n);
          if(r0.equals(n.subtract(BigInteger.ONE)) || r0.equals(BigInteger.ONE)){
              return true;
@@ -30,7 +30,7 @@ public class BigPrimeNumber {
          return false;
     }
 
-    public boolean judgePrime(BigInteger n){
+    public static boolean judgePrime(BigInteger n){
         int temp_t = 0;
         int s = 0;
         BigInteger k = n.subtract(BigInteger.ONE);
@@ -46,7 +46,7 @@ public class BigPrimeNumber {
         return true;
     }
 
-    public BigInteger probablePrime(int bits){
+    public static BigInteger probablePrime(int bits){
         BigInteger n = new BigInteger(bits, random);
         if(n.remainder(BigInteger.valueOf(2)).intValue() == 1) n.add(BigInteger.ONE);
         while(!judgePrime(n)){

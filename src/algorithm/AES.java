@@ -7,7 +7,8 @@ import java.util.ArrayList;
 public class AES {
     private int keyLength;
     private int plaintextLength;
-    char[][] subKey;
+    private char[] rawKey;
+    private char[][] subKey;
     int[][] turns = {{10,12,14},{12,12,14},{14,14,14}};
     char[][] multiply = {{2,3,1,1},{1,2,3,1},{1,1,2,3},{3,1,1,2}};
     char[][] multiplyInv = {{14,11,13,9},{9,14,11,13},{13,9,14,11},{11,13,9,14}};
@@ -50,6 +51,10 @@ public class AES {
         generateKey();
     }
 
+    public void setRawKey(char[] rawKey) throws Exception {
+        setKey(rawKey);
+        generateKey();
+    }
 
     public char[] encode(char[] plaintext) throws Exception{
         char[][] m = reshape(plaintext);
@@ -68,6 +73,10 @@ public class AES {
         firstKey = getSubKey(t*plaintextLength,(t+1)*plaintextLength);
         addRoundKey(m, firstKey);
         return flatten(m);
+    }
+
+    public char[] encode(String plaintext) throws Exception {
+        return encode(string2char(plaintext));
     }
 
     public char[] decode(char[] plaintext) throws Exception{
@@ -198,6 +207,7 @@ public class AES {
     }
 
     public void setKey(char[] key)throws Exception{
+        rawKey = key;
         if(key.length % 4 != 0)
             throw new Exception();
         keyLength = key.length / 4;
@@ -208,6 +218,11 @@ public class AES {
             }
         }
     }
+
+    public char[] getKey() {
+        return rawKey;
+    }
+
     private void sBoxReplace(char[] rowKey){
         for (int i = 0; i < rowKey.length; i++) {
             rowKey[i] = SBox[rowKey[i]];
@@ -266,6 +281,19 @@ public class AES {
         sBoxReplace(temp);
         return temp;
     }
+
+    public char[] string2char(String plaintext){
+        char[] m = new char[plaintext.length()];
+        for (int i = 0; i < m.length; i++) {
+            m[i] = plaintext.charAt(i);
+        }
+        return m;
+    }
+
+    public String char2string(char m){
+        return String.valueOf(m);
+    }
+
 
     public static void main(String[] args) throws Exception {
         char[] k = {43,126,21,22,40,174,210,166,171,247,21,136,9,207,79,60};

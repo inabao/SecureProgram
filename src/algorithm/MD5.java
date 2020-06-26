@@ -92,7 +92,7 @@ public class MD5 {
 
     public void hash(String plaintexts){
         byte[] temp = plaintexts.getBytes();
-        byte[] bytes = new byte[plaintexts.length() + 1];
+        byte[] bytes = new byte[temp.length + 1];
         for (int i = 0; i < temp.length; i++) {
             bytes[i] = temp[i];
         }
