@@ -32,7 +32,6 @@ public class MD5 {
         }
         padedPlaintext[(int)wordLength-2] = ((int)(length % ((long)Integer.MAX_VALUE + 1))) - 8;
         padedPlaintext[(int)wordLength-1] = 0;
-        System.out.println("paddingtext" + Arrays.toString(padedPlaintext));
         return padedPlaintext;
     }
     public int logicFunction(int[] input, int round){

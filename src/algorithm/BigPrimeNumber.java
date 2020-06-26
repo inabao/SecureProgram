@@ -75,16 +75,23 @@ public class BigPrimeNumber {
     private static BigInteger y;
     public static BigInteger exgcd(BigInteger a,BigInteger b)//扩展欧几里得算法
     {
-        if (b.equals(BigInteger.ZERO)) {
-            y = BigInteger.ZERO;
-            x = BigInteger.ONE;
-            return a;  //到达递归边界开始向上一层返回
+        return ex_gcd(a, b)[1].add(b).mod(b);
+    }
+    public  static BigInteger[] ex_gcd(BigInteger a,BigInteger b){
+        BigInteger ans;
+        BigInteger[] result=new BigInteger[3];
+        if(b.equals(BigInteger.ZERO)){
+            result[0] = a;
+            result[1] = BigInteger.ONE;
+            result[2] = BigInteger.ZERO;
+            return result;
         }
-        exgcd(b, a.remainder(b));
-        BigInteger temp = y;    //把x y变成上一层的
-        y = x.subtract(a.divide(b).multiply(y));
-        x = temp;
-        return y.mod(a);     //得到a b的最大公因数
+        BigInteger[] temp = ex_gcd(b,a.mod(b));
+        ans = temp[0];
+        result[0]=ans;
+        result[1]=temp[2];
+        result[2]=temp[1].subtract(a.divide(b).multiply(temp[2]));
+        return result;
     }
 
     public static void main(String[] args) {

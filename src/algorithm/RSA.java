@@ -38,8 +38,17 @@ public class RSA {
     public BigInteger encoder(String s){
         return singleEncoder(new BigInteger(s.getBytes()));
     }
-    public String decoder(BigInteger bigInteger){
+
+    public BigInteger encoder(byte[] s){
+        return singleEncoder(new BigInteger(s));
+    }
+
+    public byte[] decoder(BigInteger bigInteger){
         byte[] bytes = singleDecoder(bigInteger).toByteArray();
+        return bytes;
+    }
+
+    public String bytes2String(byte[] bytes){
         StringBuffer stringBuffer = new StringBuffer(bytes.length);
         for (int i = 0; i < bytes.length; i++) {
             stringBuffer.insert(i, (char)bytes[i]);
@@ -47,11 +56,9 @@ public class RSA {
         return new String(stringBuffer);
     }
 
-
-
     public static void main(String[] args) {
         RSA rsa = new RSA();
         System.out.println(rsa.encoder("math"));
-        System.out.println(rsa.decoder(rsa.encoder("math")));
+        System.out.println(rsa.bytes2String(rsa.decoder(rsa.encoder("math"))));
     }
 }
